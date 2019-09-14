@@ -16,7 +16,7 @@ abstract class RouteHandler(val pattern: String)
         proxy!!.redirect(path)
     }
 
-    fun render(content: String, status: Int)
+    fun render(content: String, status: Int = 200)
     {
         proxy!!.render(content, status)
     }
