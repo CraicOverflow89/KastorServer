@@ -1,0 +1,48 @@
+/* GENERAL
+*/
+
+html, body
+{
+    background-color: #141414;
+    color: #D2D2D2;
+    font-family: monospace;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* LAYOUT
+*/
+
+table.layout
+{
+    border-collapse: collapse;
+    height: 100vh;
+    width: 100vw;
+}
+
+table.layout td.title
+{
+    border-bottom: 2px solid #666666;
+}
+
+text.title
+{
+    /*color: #880088;*/
+    font-size: 32px;
+    /*text-shadow: 2px 2px #550055;*/
+}
+
+/* LINKS
+*/
+
+a
+{
+    /*color: #00AA00;*/
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
