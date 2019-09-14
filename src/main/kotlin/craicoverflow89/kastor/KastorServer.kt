@@ -11,8 +11,8 @@ import java.net.InetSocketAddress
 class KastorServer(private val port: Int, private val webroot: String = "")
 {
     // Server Data
-    private var server: HttpServer? = null
     private var running: Boolean = false
+    private var server: HttpServer? = null
 
     // Server Options
     private var rootRedirect: String = ""
