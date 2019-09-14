@@ -34,7 +34,7 @@ class KastorServer(private val port: Int, private val webroot: String = "")
 
     fun isRunning() = running
 
-    private fun renderPage(title: String, content: String): String // NOTE: is the return type needed?
+    private fun renderPage(title: String, content: String): String
     {
         // Load Template
         var html = resourceText("templates/main.htm")
