@@ -27,3 +27,5 @@ fun main(args: Array<String>)
     server.start()
 }
 ```
+
+Run the code then navigate to _127.0.0.1:7769/hello_ in the browser and you will see 'Hello World' displayed.
