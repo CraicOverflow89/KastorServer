@@ -1,7 +1,7 @@
 Kastor Server
 =============
 
-Lightweight development server written largely in Kotlin.
+Lightweight development server written in Kotlin.
 
 ### Usage
 
