@@ -3,10 +3,9 @@ Kastor Server
 
 Lightweight development server written largely in Kotlin.
 
-**Usage**
+### Usage
 
-Simply create an instance on a port and serve files from the supplied webroot.
-Create custom route handlers to render content or redirect to another elsewhere.
+Simply create an instance on a port and add custom route handlers to render content or redirect to another elsewhere.
 
 ```
 fun main(args: Array<String>)
@@ -19,6 +18,7 @@ fun main(args: Array<String>)
     {
         override fun invoke(method: String, parameter: HashMap<String, Any>)
         {
+            // Renders response body (status code is 200 by default but included for this example)
             render("Hello World", 200)
         }
     })
