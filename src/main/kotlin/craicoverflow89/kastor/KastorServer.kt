@@ -37,15 +37,13 @@ class KastorServer(private val port: Int, private val webroot: String = "")
     private fun renderPage(title: String, content: String): String // NOTE: is the return type needed?
     {
         // Load Template
-        var html = resourceText("templates/KastorTemplate.htm")
+        var html = resourceText("templates/main.htm")
 
         // Transform Style
         html = html.replace("[[STYLE]]", renderPageStyle())
 
         // Transform Favicon
-        //html = html.replace("[[FAVICON]]", "<link rel = \"shortcut icon\" href = \"/KASTOR/images/favicon.png\" />")
-        html = html.replace("[[FAVICON]]", "")
-        // NOTE: we need to add a favicon image
+        html = html.replace("[[FAVICON]]", "<link rel = \"shortcut icon\" href = \"/KASTOR/images/favicon.png\" />")
 
         // Transform Variables
         html = html.replace("[[TITLE]]", title)
@@ -58,9 +56,9 @@ class KastorServer(private val port: Int, private val webroot: String = "")
     private fun renderPageStyle() = StringBuffer().apply {
         // Style List
         //val styleList = ArrayList<String>()
-        //styleList.add("KastorStyle.css")
+        //styleList.add("main.css")
         // NOTE: we can dynamically load the resources/styles/*.css files here
-        val styleList = arrayListOf("KastorStyle.css")
+        val styleList = arrayListOf("main.css")
 
         // Iterate Files
         append("<style>")
