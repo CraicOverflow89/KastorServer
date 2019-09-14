@@ -1,7 +1,5 @@
 package craicoverflow89.kastor
 
-import craicoverflow89.kastor.tools.Collection
-import craicoverflow89.kastor.tools.FileSystem
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
