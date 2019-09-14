@@ -85,10 +85,10 @@ class KastorServer(private val port: Int, private val webroot: String = "")
             // Output
             println(" > request $path")
             println("   method  $method")
-            if(!request.inboundParameter.isEmpty())
+            if(!request.inboundParameter.isEmpty()) with(request.inboundParameter)
             {
-                println("   post    params")
-                request.inboundParameter.forEach { k, v -> println("           $k = $v") }
+                println("   params  ${this.size}")
+                this.forEach { k, v -> println("           $k = $v") }
             }
             // NOTE: there should be an option to hide all output like this or show it
 
@@ -186,9 +186,6 @@ class KastorServer(private val port: Int, private val webroot: String = "")
         private fun handleRequestFile(path: String): File
         {
             // Internal
-            //if(path.startsWith("/KASTOR/")) return File(resourcePath + path.substring(7))
-            // NOTE: since we're using resources instead of file locations, that whole thing needs changing
-            //       see https://stackoverflow.com/questions/22605666/java-access-files-in-jar-causes-java-nio-file-filesystemnotfoundexception/22605905#22605905
             if(path.startsWith("/KASTOR/")) return resourceFile(path.substring(8))
 
             // External
