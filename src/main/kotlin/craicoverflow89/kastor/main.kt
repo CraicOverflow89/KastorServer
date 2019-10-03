@@ -41,32 +41,29 @@ fun main(args: Array<String>) {
     val argsPos = argsSplit.first
     var argsFlag = argsSplit.second
 
-    // Arg: Directory
-    val directory = if(argsPos.isNotEmpty()) argsPos[0] else System.getProperty("user.dir")
-
-    // Arg: Port
-    var port = 0
-    try {port = if(argsPos.size > 1) Integer.parseInt(argsPos[1]) else 7069}
-
-    // Port Error
-    catch(ex: NumberFormatException) {
-        System.err.println("Port must be a valid integer - found ${argsPos[1]}")
-        exitProcess(-1)
-    }
-
-    // Flag: Debug
-    val debug = argsFlag.contains("d")
-
     // Print Logo
-    if(debug) println(
+    println(
         "        _    __ ____   __    __  \n" +
         " /__/  /_|  (    /    /  )  /__) \n" +
         "/  )  (  | __)  (    (__/  / (   \n"
     )
 
     // Launch Server
-    KastorServer(port, directory).apply {
-        setDebugActive(debug)
+    KastorServer(0.let {
+
+        // Custom Port
+        if(argsPos.size > 1) {
+            try {Integer.parseInt(argsPos[1])}
+            catch(ex: NumberFormatException) {
+                System.err.println("Port must be a valid integer - found ${argsPos[1]}")
+                exitProcess(-1)
+            }
+        }
+
+        // Default Pot
+        else 7069
+    }, if(argsPos.isNotEmpty()) argsPos[0] else System.getProperty("user.dir")).apply {
+        setDebugActive(argsFlag.contains("d"))
         setServeDirectory(false)
         setServeImage(true)
         setRootRedirect("index.htm")
