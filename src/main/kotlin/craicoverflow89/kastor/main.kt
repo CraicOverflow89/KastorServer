@@ -43,17 +43,14 @@ fun main(args: Array<String>) {
         }
     }
 
-    // Flag: Browse
-    val browse = flags.contains('b')
-
     // Flag: Debug
     val debug = flags.contains('d')
 
     // Print Logo
     println(
         "        _    __ ____   __    __  \n" +
-                " /__/  /_|  (    /    /  )  /__) \n" +
-                "/  )  (  | __)  (    (__/  / (   \n"
+        " /__/  /_|  (    /    /  )  /__) \n" +
+        "/  )  (  | __)  (    (__/  / (   \n"
     )
 
     // Launch Server
@@ -63,7 +60,4 @@ fun main(args: Array<String>) {
         setServeImage(true)
         setRootRedirect("index.htm")
     }.start()
-
-    // Immediate Browse
-    // if(browse) launch default browser at 127.0.0.1:port
 }
