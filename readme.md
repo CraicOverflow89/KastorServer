@@ -1,6 +1,8 @@
 Kastor Server
 =============
 
+[![Known Vulnerabilities](https://snyk.io//test/github/CraicOverflow89/KoXML/badge.svg?targetFile=build.gradle)](https://snyk.io//test/github/CraicOverflow89/KoXML?targetFile=build.gradle)
+
 Lightweight development server written in Kotlin. Provides a library on which to build JVM projects that serve over a port and a quick, local webserver to spawn from the command line.
 
 ### Local Server
@@ -37,7 +39,6 @@ fun main(args: Array<String>) {
 
     // Add a route that says Hello World when visited
     server.addRoute(object: RouteHandler("/hello") {
-
         override fun invoke(method: String, parameter: HashMap<String, Any>) {
 
             // Renders response body (status code is 200 by default but included for this example)
