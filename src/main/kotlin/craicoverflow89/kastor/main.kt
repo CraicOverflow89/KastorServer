@@ -22,11 +22,14 @@ fun main(args: Array<String>) {
     // Arg: Directory
     val directory = if(args.isNotEmpty()) args[0] else System.getProperty("user.dir")
 
+    // NOTE: flags should be handled regardless of prior arguments
+    //       need to filter subsection of args where it.startsWith("-")
+
     // Arg: Port
     val port: Int = if(args.size > 1) Integer.parseInt(args[1]) else 7069
 
     // Parse Flags
-    val flags = ArrayList<Char>().apply {
+    val flags: ArrayList<String> = ArrayList<String>().apply {
         if(args.size > 2) {
 
             // Flag Regex
@@ -39,13 +42,13 @@ fun main(args: Array<String>) {
                 if(pattern.matches(it) == null) throw Exception("Invalid syntax found: $it\n")
 
                 // Append Flag
-                this.add(it.substring(1).single())
+                this.add(it.substring(1))
             }
         }
     }
 
     // Flag: Debug
-    val debug = flags.contains('d')
+    val debug = flags.contains("d")
 
     // Print Logo
     if(debug) println(
