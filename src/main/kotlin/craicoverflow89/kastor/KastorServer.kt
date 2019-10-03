@@ -25,7 +25,14 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
     // Server Debugging
     private var debugActive = false
 
-    fun addRoute(handler: RouteHandler) = routeMap.put(handler.pattern, handler)
+    fun addRoute(handler: RouteHandler) {
+
+        // Server Started
+        if(running) throw Exception("Cannot add routes when server is already running!")
+
+        // Add Route
+        routeMap[handler.pattern] = handler
+    }
 
     fun getDebugActive() = debugActive
 
@@ -42,20 +49,26 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
     private fun renderPage(title: String, content: String): String {
 
         // Load Template
-        var html = resourceText("templates/main.htm")
+        var result = resourceText("templates/main.htm")
 
-        // Transform Style
-        html = html.replace("[[STYLE]]", renderPageStyle())
+        // Transform Template
+        mapOf(
 
-        // Transform Favicon
-        html = html.replace("[[FAVICON]]", "<link rel = \"shortcut icon\" href = \"/KASTOR/images/favicon.png\" />")
+            // Transform Style
+            Pair("[[STYLE]]", renderPageStyle()),
 
-        // Transform Variables
-        html = html.replace("[[TITLE]]", title)
-        html = html.replace("[[CONTENT]]", content)
+            // Transform Favicon
+            Pair("[[FAVICON]]", "<link rel = \"shortcut icon\" href = \"/KASTOR/images/favicon.png\" />"),
 
-        // Return Content
-        return html
+            // Transform Variables
+            Pair("[[TITLE]]", title),
+            Pair("[[CONTENT]]", content)
+        ).forEach {
+            result = result.replace(it.key, it.value)
+        }
+
+        // Return Result
+        return result
     }
 
     private fun renderPageStyle() = StringBuffer().apply {

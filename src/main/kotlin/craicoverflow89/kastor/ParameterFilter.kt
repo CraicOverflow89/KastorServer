@@ -6,17 +6,16 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URLDecoder
 
-class ParameterFilter: Filter()
-{
+class ParameterFilter: Filter() {
 
     override fun description() = "Parses the requested URI for parameters"
 
-    override fun doFilter(exchange: HttpExchange, chain: Chain)
-    {
+    override fun doFilter(exchange: HttpExchange, chain: Chain) {
+
         // Define Logic
         val decodeString = {value: String -> URLDecoder.decode(value, System.getProperty("file.encoding"))}
-        val parseQuery = fun(query: String, params: HashMap<String, String>): HashMap<String, String>
-        {
+        val parseQuery = fun(query: String, params: HashMap<String, String>): HashMap<String, String> {
+
             // Split Pairs
             query.split("&").forEach {
 
@@ -37,8 +36,7 @@ class ParameterFilter: Filter()
         exchange.setAttribute("parameters", if(exchange.requestURI.rawQuery != null) parseQuery(exchange.requestURI.rawQuery, hashMapOf()) else hashMapOf())
 
         // Parse POST Params
-        if(exchange.requestMethod.equals("POST", ignoreCase = true))
-        {
+        if(exchange.requestMethod.equals("POST", ignoreCase = true)) {
             val reader = BufferedReader(InputStreamReader(exchange.requestBody, "utf-8"))
             exchange.setAttribute("parameters", parseQuery(reader.readLine(), exchange.getAttribute("parameters") as HashMap<String, String>))
         }

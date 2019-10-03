@@ -58,9 +58,12 @@ fun main(args: Array<String>) {
 
     // Launch Server
     KastorServer(port, directory).apply {
-        //setDebug(debug)
+        setDebug(debug)
         setServeDirectory(false)
         setServeImage(true)
         setRootRedirect("index.htm")
     }.start()
+
+    // Immediate Browse
+    // if(browse) launch default browser at 127.0.0.1:port
 }
