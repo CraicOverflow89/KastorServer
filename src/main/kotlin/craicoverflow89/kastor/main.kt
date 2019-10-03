@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
     val debug = flags.contains('d')
 
     // Print Logo
-    println(
+    if(debug) println(
         "        _    __ ____   __    __  \n" +
         " /__/  /_|  (    /    /  )  /__) \n" +
         "/  )  (  | __)  (    (__/  / (   \n"
