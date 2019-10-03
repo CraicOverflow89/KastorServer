@@ -1,0 +1,15 @@
+Kastor Local Help
+
+syntax
+ $ kastor (directory) (port) -b -d
+
+example
+ $ kastor . -b
+
+arguments
+ directory  the directory to serve as webroot (default is cwd)
+ port       the port to allocate (default is 7069)
+
+flags
+ -b  browse immediately when server is started
+ -d  print debug infomation in the console
