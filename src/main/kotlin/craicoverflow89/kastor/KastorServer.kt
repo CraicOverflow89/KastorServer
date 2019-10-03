@@ -22,9 +22,6 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
     // Server Routes
     private val routeMap = mutableMapOf<String, RouteHandler>()
 
-    // Server Debugging
-    private var debugActive = false
-
     fun addRoute(handler: RouteHandler) {
 
         // Server Started
@@ -33,8 +30,6 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
         // Add Route
         routeMap[handler.pattern] = handler
     }
-
-    fun getDebugActive() = debugActive
 
     fun getRootRedirect() = rootRedirect
 
@@ -96,11 +91,11 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
             val request = ServerRequest(path, method, parameterMap)
 
             // Output
-            println(" > request $path")
-            println("   method  $method")
+            debug(" > request $path")
+            debug("   method  $method")
             if(!request.inboundParameter.isEmpty()) with(request.inboundParameter) {
-                println("   params  ${this.size}")
-                this.forEach { k, v -> println("           $k = $v") }
+                debug("   params  ${this.size}")
+                this.forEach { (k, v) -> debug("           $k = $v") }
             }
             // NOTE: there should be an option to hide all output like this or show it
 
@@ -154,7 +149,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
                         // NOTE: extend these file types
 
                         // Output
-                        println("   type    image")
+                        debug("   type    image")
 
                         // Render Image
                         if(serveImage) responseImage(ex, file, 200)
@@ -167,7 +162,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
                     else {
 
                         // Output
-                        println("   type    file")
+                        debug("   type    file")
 
                         // Response
                         responseWrite(ex, file.readText(), 200)
@@ -178,7 +173,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
                 else if(file.isDirectory) {
 
                     // Output
-                    println("   type    directory")
+                    debug("   type    directory")
 
                     // Render Directory
                     if(serveDirectory) responseDirectory(ex, path, file)
@@ -191,7 +186,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
             // Path is Unrecognised
             else {
 
-                // Temp
+                // Response
                 responseWrite(ex, renderPage("404 Page Not Found", "Could not find anything with that path."), 404)
             }
         }
@@ -304,10 +299,6 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
 
     }
 
-    fun setDebug(value: Boolean) {
-        debugActive = value
-    }
-
     fun setRootRedirect(value: String) {
         rootRedirect = value
     }
@@ -351,7 +342,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
         running = true
 
         // Output
-        println("Server is running on port $port.")
+        debug("Server is running on port $port.")
         return true
     }
 
@@ -369,7 +360,22 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
         running = false
 
         // Output
-        println("Server stopped.")
+        debug("Server stopped.")
+    }
+
+    companion object {
+
+        private var debugActive = false
+
+        fun debug(value: Any) {
+            if(debugActive) println(value)
+        }
+
+        fun getDebugActive() = debugActive
+
+        fun setDebugActive(value: Boolean) {
+            debugActive = value
+        }
     }
 
 }

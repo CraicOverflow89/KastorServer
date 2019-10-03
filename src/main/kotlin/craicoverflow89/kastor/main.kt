@@ -1,5 +1,6 @@
 package craicoverflow89.kastor
 
+import craicoverflow89.kastor.KastorServer.Companion.setDebugActive
 import java.io.BufferedReader
 import java.io.FileReader
 import kotlin.system.exitProcess
@@ -55,7 +56,7 @@ fun main(args: Array<String>) {
 
     // Launch Server
     KastorServer(port, directory).apply {
-        setDebug(debug)
+        setDebugActive(debug)
         setServeDirectory(false)
         setServeImage(true)
         setRootRedirect("index.htm")
