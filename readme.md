@@ -52,3 +52,7 @@ fun main(args: Array<String>) {
 ```
 
 Run the code then navigate to _127.0.0.1:7769/hello_ in the browser and you will see `Hello World` displayed.
+
+### Releases
+
+Version 1.0.0 has now been released (11/10/2019).

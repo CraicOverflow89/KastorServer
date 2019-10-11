@@ -128,7 +128,6 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
 
                 // Feature Disabled
                 responseWrite(ex, renderPage("Invalid Path", "No path supplied."), 404)
-                // NOTE: is this definitely how we need to do this?
             }
         }
 
@@ -206,17 +205,13 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
 
     private fun responseDirectory(ex: HttpExchange, path: String, response: File) {
 
-        // NOTE: shouldn't have to keep calling html.append (use with or apply)
-
         // Directory Content
         val list = ArrayList<File>()
         response.listFiles().forEach {list.add(it)}
-        // NOTE: need to perform a cast here
 
         // Create Content
         val html = StringBuffer()
         html.append("<html>Showing contents of <i>$path</i>")
-        // NOTE: we are doing html tags for now, since we're not using a template
 
         // Render Parent
         html.append("<br>&nbsp;-&nbsp;<a href = \"")
@@ -313,9 +308,8 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
 
     fun start(): Boolean {
 
-        // NOTE: what are we going to do if start is called when running == true?
+        // Already Started
         if(running) return true
-        // NOTE: might be worth throwing a custom exception now
 
         // Create Server
         try {server = HttpServer.create(InetSocketAddress(port), 0)}
@@ -348,6 +342,7 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
 
     fun stop() {
 
+        // Already Stopped
         if(!running) return
 
         // Null Safety
