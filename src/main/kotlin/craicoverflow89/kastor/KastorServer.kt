@@ -292,6 +292,10 @@ class KastorServer(private val port: Int, private val webroot: String = "") {
             responseWrite(ex, content, status)
         }
 
+        fun renderImage(image: File) {
+            responseImage(ex, image, 200)
+        }
+
     }
 
     fun setRootRedirect(value: String) {

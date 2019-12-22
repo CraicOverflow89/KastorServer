@@ -1,5 +1,7 @@
 package craicoverflow89.kastor
 
+import java.io.File
+
 abstract class RouteHandler(val pattern: String) {
 
     private var proxy: KastorServer.RouteHandlerProxy? = null
@@ -16,6 +18,10 @@ abstract class RouteHandler(val pattern: String) {
 
     fun render(content: String, status: Int = 200) {
         proxy!!.render(content, status)
+    }
+
+    fun renderImage(image: File) {
+        proxy!!.renderImage(image)
     }
 
 }
